@@ -1,14 +1,16 @@
 # semana-omnistack-09
 Aplicação desenvolvida na nona semana omnistack da Rocketseat, voltado para Web e Mobile, totalmente em Javascript
 
-<p> Versão Web</p>
+#Versão Web
+<p>Login</p>
 <p align="center">
   <img src="/previews/loginWeb.png" width="1200">
 </p>
-
+<p>Adicionar Spot</p>
 <p align="center">
  <img src="/previews/createSpotWeb.png" width="1200">
 </p>
+<p>Criar um usuario</p>
 <p align="center">
-  <img src="/previews/loginWeb.png" width="1200">
+  <img src="/previews/registerWeb.png" width="1200">
 </p>
