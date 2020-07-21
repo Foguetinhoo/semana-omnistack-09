@@ -1,7 +1,14 @@
 # semana-omnistack-09
+
 Aplicação desenvolvida na nona semana omnistack da Rocketseat, voltado para Web e Mobile, totalmente em Javascript
 
+<p align="center">
+   <img src="https://github.com/carlosguttemberg/Pokedex/blob/master/img/node-js.png" width="200">
+   <img src="https://github.com/carlosguttemberg/Pokedex/blob/master/img/react.png" width="200">
+</p>
+
 ## Versão Web
+
 
 <p>Login</p>
 <p>Aqui podemos realizar o login da aplicação</p>
