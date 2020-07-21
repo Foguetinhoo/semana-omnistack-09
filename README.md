@@ -4,7 +4,7 @@ Aplicação desenvolvida na nona semana omnistack da Rocketseat, voltado para We
 
 <p align="center">
    <img src="/previews/node-js.png" width="200">
-   <img src="/previews/react.png" width="200">
+   <img src="/previews/react.png" width="300">
    <img src="/previews/react-native.png" width="200">
 </p>
 
