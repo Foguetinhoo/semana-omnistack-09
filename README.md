@@ -1,6 +1,6 @@
 # semana-omnistack-09
 
-Aplicação desenvolvida na nona semana omnistack da Rocketseat, voltado para Web e Mobile, totalmente em Javascript
+Aplicação desenvolvida na nona edição da semana omnistack, oferecida pela Rocketseat, voltado para Web e Mobile, totalmente em Javascript.
 
 <p align="center">
    <img src="/previews/node-js.png" width="200">
