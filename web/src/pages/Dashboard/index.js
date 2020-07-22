@@ -51,8 +51,9 @@ export default function Dashboard({ history }) {
     }
     return (
       <Content>
-        <ListSpots>
+        <Carousel >
           {spotsList.map(spot => (
+            <Carousel.Item>
             <SpotItem key={spot._id}>
               <header>
                 <img src={spot.thumbnail_url} alt={5} />
@@ -60,9 +61,12 @@ export default function Dashboard({ history }) {
 
               <strong>{spot.company}</strong>
               <span>{spot.price ? `R$${Number(spot.price).toFixed(2)}/dia` : 'Gratuito'}</span>
-            </SpotItem>
+              </SpotItem>
+
+            </Carousel.Item>
           ))}
-        </ListSpots>
+
+        </Carousel>
         <Link to="/new">
           <ButtonD width='100%' text="Cadastrar Spot" icon={<FontAwesomeIcon icon={faPlus} />} />
         </Link>
