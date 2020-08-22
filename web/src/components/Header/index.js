@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import{ Link} from 'react-router-dom'
 import { HeaderS, User, ButtonLogout } from './style'
 
@@ -22,9 +22,11 @@ const [show,setShow] = useState(false)
    history.push('/')
     
   }
+  
+  
+  
   return (
     <>
-    {console.log(name)}
       <HeaderS>
         <Link to="/dasboard">
           <User>

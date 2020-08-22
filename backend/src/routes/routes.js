@@ -1,15 +1,11 @@
-const express = require('express')
-const routes = express.Router();
+const {Router} = require('express')
+const routes = Router();
 
 const spotRoutes = require('./spotRoutes')
 const bookingRoutes = require('./bookingRoutes')
 const dashboardRoutes = require('./dashboardRoutes')
-const sessionRoutes= require('./sessionRoutes')
+const sessionRoutes = require('./sessionRoutes')
+const approvedRoutes =  require('./approvalBookingRoutes')
+const rejectionRoutes =  require('./rejectionBookingRoutes')
 
-routes.get('/');
-
-
-
-
-
-module.exports = routes.use([spotRoutes, bookingRoutes, dashboardRoutes, sessionRoutes]);
+module.exports = routes.use([spotRoutes, bookingRoutes, dashboardRoutes, sessionRoutes,approvedRoutes,rejectionRoutes]);

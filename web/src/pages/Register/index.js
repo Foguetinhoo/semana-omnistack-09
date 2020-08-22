@@ -40,7 +40,8 @@ export default function Register({ history }) {
     } else if (!pattern.test(email)) {
       Message({ message: 'email invalido', type: 'warning' })
     } else {
-      const response = await api.post('/sessions', { name, email })
+      let nome;
+      const response = await api.post('/sessions', { name:name.trim(), email })
       const { user, type } = response.data
       await Message(response.data)
       if (type === 'success') {
@@ -71,7 +72,7 @@ export default function Register({ history }) {
                   name="name"
                   placeholder="Insira seu nome"
                   value={name}
-                  onChange={e => setName(e.target.value.trim())}
+                  onChange={e => setName(e.target.value)}
                   ref={inFocus}
 
                 />
@@ -81,8 +82,8 @@ export default function Register({ history }) {
                   id="email"
                   name="email"
                   placeholder="Insira seu email mais top"
-                  value={email}
-                  onChange={e => setEmail(e.target.value.trim())}
+                  value={email.trim()}
+                  onChange={e => setEmail(e.target.value)}
                 />
                 <ButtonD color="#FF6978" text="Criar" icon={<FontAwesomeIcon icon={faCheck} />} />
               </form>

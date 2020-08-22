@@ -1,9 +1,11 @@
 const  Spot =  require('../models/Spot');
 const  User =  require('../models/User');
 module.exports = {
-    async show(req,rep) {
+    async show(req, rep) {
+        const dados = JSON.parse(req.connectedUsers)
+
         const {user_id} = req.headers;
-        console.log(user_id)
+        // console.log(user_id)
         const spots = await Spot.find({user:user_id})
         if(!spots){
             return rep.status(404).json({

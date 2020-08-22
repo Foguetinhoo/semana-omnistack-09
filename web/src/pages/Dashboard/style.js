@@ -1,20 +1,20 @@
 import styled from 'styled-components'
 
-export const ListSpots = styled.ul`
+export const List = styled.ul`
         width:100%;
-        display:grid;
-        grid-template-columns:repeat(2,1fr);
-        gap:20px;
+        
 `
 export const SpotItem = styled.li`
         display:flex;
         flex-direction:column;
         border-radius:4px;
+        margin-bottom:40px;
+      
         header{
             
             img{
                 width:100%;
-                height:200px;
+                height:250px;
                 background-size:cover;
                 border-radius:2px;
                 @media screen and (width:480px) {
@@ -35,12 +35,12 @@ export const SpotItem = styled.li`
 export const Content = styled.div`
         max-width:600px;
         min-width:400px;
-        background:#FFF;
+        background:#B2AFAF;
         border-radius:4px;
-        margin:30px auto 0;
+        margin:20px auto 0;
         padding:40px;
         @media screen and (width:480px) {
-            max-width:350px;
+            max-width:250px;
         }
 `;
 export const Info = styled.div`
@@ -55,7 +55,7 @@ export const Info = styled.div`
      
         margin-top:-10px;
        &:hover{
-            color:#000;
+            /* color:#000; */
             transition: all .3s ease;
             border-radius:3px;
             padding:10px;
@@ -66,3 +66,27 @@ export const Info = styled.div`
        }
    }
 `
+export const Notification = styled.ul`
+    list-style:none;
+    margin-bottom:15px;
+
+    li{
+      font-size:16px;
+      line-height:24px;  
+    }
+    button{
+        margin-right:10px;
+        border:0;
+        font-weight:bold;
+        margin-top:10px;
+        background:none;
+    }
+    button.accept{
+        color:#26413C;  
+       
+    }
+
+    button.reject{
+        color:#E55e5e;
+    }
+`;

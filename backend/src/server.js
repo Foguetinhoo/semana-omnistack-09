@@ -2,10 +2,17 @@ const express = require('express');
 const cors =  require('cors')
 const routes =  require('./routes/routes');
 const path = require('path')
+
+const localStorage = require('./storage')
 const morgan = require('morgan')
 
+const socket = require('socket.io')
+const http =  require('http')
+
 const mongoose =  require('mongoose');
-const app =  express();
+const app = express();
+const server = http.Server(app)
+const io = socket(server)
 
 // mongoose.connect('mongodb+srv://ad_aircnc:rocket2019@tindev-0sp8v.mongodb.net/bd_aircnc?retryWrites=true&w=majority',{
 //     useNewUrlParser:true,
@@ -16,15 +23,32 @@ mongoose.connect('mongodb://localhost:27017',{
     useNewUrlParser:true,
     useUnifiedTopology:true
 })
-
-
 app.use(express.json());
+
+const connectedUsers = {}
+io.on('connection', socket => {
+    const { user_id } = socket.handshake.query
+    connectedUsers[user_id] = socket.id
+    localStorage.setItem('users', JSON.stringify(connectedUsers))
+})
+app.use((req, res, next) => {
+    try {
+        req.io = io
+        req.connectedUsers = localStorage.getItem('users')
+        next()
+    }
+    catch (err) {
+        console.log(err)
+    }
+})
+
 app.use(cors())
 app.use(morgan('dev'))  
 app.use('/v1/api',routes);
 app.use('/v1/api/files',express.static(path.resolve(__dirname,'..','uploads')))
 // req.params para router params
-app.listen(3333, err => {
+
+server.listen(3333, err => {
     if(err){
        console.log(err.message)
         return;

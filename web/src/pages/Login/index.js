@@ -67,7 +67,7 @@ export default function Login({ history }) {
             <Content>
               <p>
                 Ofereça <strong>spots</strong> para programadores e encontre <strong>talentos</strong> na web
-        </p>
+              '</p>
               <form onSubmit={handleSubmit} >
                 <Label forI="email" htmlValue="Email *" />
                 <Input

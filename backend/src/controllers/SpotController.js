@@ -4,9 +4,9 @@ module.exports = {
     async index(req, rep) {
         try {
             const { tech } = req.query;
-            console.log(tech)
+            // console.log(tech)
             const spots = await Spot.find({ technologys: tech })
-            console.log(spots)
+            // console.log(spots)
             if (spots) {
                 return rep.status(200).json(spots)
             }
