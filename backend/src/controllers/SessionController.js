@@ -1,8 +1,8 @@
 const User =  require('../models/User');
 module.exports = {
     async create(req,res){
-        const {email, name} = req.body;
-        console.log(email,name)
+        const { email, name } = req.body;
+        const users = JSON.parse(req.connectedUsers)
         if(!email || !name) {
             return res.json({
             type:'error',
@@ -18,7 +18,9 @@ module.exports = {
             return res.json({
                 type:'success',
                 message:`O ${user.email} foi cadastrado com sucesso`,
-                user
+                user,
+                clients:req.connectedUsers
+                
             });
         } else{
             return res.json({type:'error', message:`O ${user.email} já existe`});

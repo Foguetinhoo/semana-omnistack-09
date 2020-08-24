@@ -17,7 +17,9 @@ module.exports = {
             await booking.populate('spot').populate('user').execPopulate()
 
             const ownerSocket = users[booking.spot.user]
-
+            if (user_id === ownerSocket) {
+                return resp.status(200).json({type:"error",message:"não é possivel realizar"})
+            }
             if (ownerSocket) {
                 req.io.to(ownerSocket).emit('booking_request',booking)
             }

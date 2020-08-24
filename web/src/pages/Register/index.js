@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom'
 
 import { Content, Div,Input } from './style'
 
-import Logo from '../../components/Logo/index'
+// import Logo from '../../components/Logo/index'
 import ButtonD from '../../components/Button/index'
 import Label from '../../components/Label/index'
+
+import logoImg from '../../assets/logo.png'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faArrowLeft } from '@fortawesome/free-solid-svg-icons'

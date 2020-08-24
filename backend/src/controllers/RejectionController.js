@@ -1,4 +1,5 @@
 const Booking = require('../models/Booking');
+const Spot = require('../models/Spot')
 
 module.exports = {
     async create(req, resp) {
@@ -15,19 +16,30 @@ module.exports = {
                         message: "reserva não encontrada",
                     })
             }
-           
 
+            if (Object.entries(booking.aproved)) {
+                return resp.status(200).
+                    json({
+                        type: "error",
+                        message: "Não é possivel alterar situação de reserva",
+                    })
+            } 
             booking.aproved = true
 
             await booking.populate('spot').execPopulate()
             await booking.save()
 
+            const bookingUserSocket = connectedUsers[booking.user]
+            if (bookingUserSocket) {
+                io.to(bookingUserSocket).emit('booking_response',booking)
+            }
             return resp.status(200).
                 json({
                     type: "success",
                     message: "reserva rejeitada",
                     booking
                 })
+            
         } catch (err) {
             console.log(err)
             return resp.status(400).json({

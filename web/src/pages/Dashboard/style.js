@@ -70,23 +70,29 @@ export const Notification = styled.ul`
     list-style:none;
     margin-bottom:15px;
 
-    li{
+    li.request-item
+    {
       font-size:16px;
-      line-height:24px;  
+      line-height:24px; 
+      margin-bottom:30px; 
     }
     button{
         margin-right:10px;
         border:0;
         font-weight:bold;
-        margin-top:10px;
+         margin-top:20px; 
         background:none;
     }
     button.accept{
         color:#26413C;  
        
     }
-
     button.reject{
         color:#E55e5e;
     }
+    .carousel-control-prev{
+        width:20px;
+        ;
+    }
+   
 `;

@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import{ Link} from 'react-router-dom'
-import { HeaderS, User, ButtonLogout } from './style'
+import { HeaderS, User, ButtonLogout,Logo } from './style'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCircle } from '@fortawesome/free-regular-svg-icons'
@@ -10,7 +10,8 @@ import { faSignOutAlt, faCheck, faTimes } from '@fortawesome/free-solid-svg-icon
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
-import Logo from '../Logo/index'
+// import Logo from '../Logo/index'
+import logoImg from '../../assets/logo.png'
 
 export default function Header({name,history}){
 const [show,setShow] = useState(false)
@@ -19,21 +20,20 @@ const [show,setShow] = useState(false)
 
   const Logout = () => {
     localStorage.removeItem('user')
-   history.push('/')
-    
+    history.push('/')
+
   }
   
-  
-  
+
   return (
     <>
       <HeaderS>
-        <Link to="/dasboard">
+        <Link to="/dashboard">
           <User>
             <FontAwesomeIcon icon={faUserCircle} /> {name}
           </User>
         </Link>
-        <Logo size={35} />
+        <Logo src={logoImg} />
         <ButtonLogout  onClick={handleShow}> Sair  <FontAwesomeIcon icon={faSignOutAlt} /> </ButtonLogout>
       </HeaderS>
 

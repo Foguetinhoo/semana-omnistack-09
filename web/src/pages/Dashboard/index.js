@@ -1,15 +1,14 @@
-import React, { useEffect, useState, useCallback,useMemo } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom'
 import { Notification, SpotItem, Content, Info } from './style'
 
 import Header from '../../components/Header/index'
 
-import { Modal, Button,Carousel} from 'react-bootstrap'
+import { Modal, Button, Carousel } from 'react-bootstrap'
 import ButtonD from '../../components/Button/index'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faTimes, faCaretRight, faPlus, faCaretLeft, faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 import Message from '../../utils/message'
 
@@ -26,25 +25,25 @@ export default function Dashboard({ history }) {
   const [show, setShow] = useState(true)
 
   let notifications;
-  const loadSpots =  async id => {
+  const loadSpots = async id => {
     const spotsF = await api.get('/dashboard', {
-      headers: { user_id:id }
-     })
+      headers: { user_id: id }
+    })
     setSpots(spotsF.data)
     setLoading(false)
   }
   const handleClose = () => setShow(false);
-  const { _id:id_user }  = JSON.parse(localStorage.getItem('user'))
+  const { _id: id_user } = JSON.parse(localStorage.getItem('user'))
 
   const socket = useMemo(() => socketio('http://localhost:3333', {
-    query: { user_id: id_user}
+    query: { user_id: id_user }
   }), [id_user])
 
   const validSession = () => {
     if (!localStorage.getItem('user')) {
       history.push('/')
       return;
-    } else {  
+    } else {
       const userData = JSON.parse(localStorage.getItem('user'))
       const { name, _id } = userData
       setUsername(name)
@@ -53,12 +52,12 @@ export default function Dashboard({ history }) {
     return true;
   }
 
-    useEffect(() => {
-      validSession();
-      socket.on('booking_request', data => {
-        setRequestData([...requests, data])
-      })
-    }, [requests, socket])
+  useEffect(() => {
+    validSession();
+    socket.on('booking_request', data => {
+      setRequestData([...requests, data])
+    })
+  }, [requests, socket])
 
   const rejectBooking = async booking_id => {
     const response = await api.post(`/bookings/${booking_id}/rejections`)
@@ -67,13 +66,13 @@ export default function Dashboard({ history }) {
       Message(message, type)
       return;
     }
-    Message(message,type)
-    setRequestData(requests.filter( request => request._id !== booking_id))
+    Message(message, type)
+    setRequestData(requests.filter(request => request._id !== booking_id))
   }
-  const aprovedBooking = async booking_id => {
+  const aprovedBooking = async (booking_id) => {
     const response = await api.post(`/bookings/${booking_id}/approvals`)
     const { type, message } = response.data
-    
+
     if (type === 'error') {
       Message(message, type)
       return;
@@ -90,37 +89,56 @@ export default function Dashboard({ history }) {
           <Link to="/new" >Clique aqui para adicionar um novo <FontAwesomeIcon icon={faPlus} /> </Link>
         </Info>)
     }
-    
+
     return (
       <Content>
-        
-      <Notification>
-          {requests.length > 0 ? <Carousel>
-            {console.log(notifications)}
+        <Notification>
+          {requests.length > 0 ? <Carousel 
+            nextIcon={<FontAwesomeIcon icon={faCaretRight} />}
+            prevIcon={<FontAwesomeIcon icon={faCaretLeft} />}>
             {requests.map((request, index) => (
               <Carousel.Item key={index}>
-                <li key={request._id}>
+                <li key={request._id} className="request-item">
                   <p>
                     O usuário <strong>{request.user.email}</strong> está solicitando uma reserva em <strong>{request.spot.company}</strong>
                     &nbsp; no dia <strong>{request.date}</strong>
                   </p>
                   <button className="accept" onClick={() => rejectBooking(request._id)}> ACEITAR <FontAwesomeIcon icon={faCheck} /> </button>
-                  <button className="reject" onClick={() => aprovedBooking(request._id)}> REJEITAR <FontAwesomeIcon icon={faTimes} /></button>
+                  <button className="reject" onClick={() => aprovedBooking(request._id,index)}> REJEITAR <FontAwesomeIcon icon={faTimes} /></button>
                 </li>
               </Carousel.Item>
             ))}
-          </Carousel> : <div/>}
+          </Carousel> : <div />}
+          {/* <Carousel
+            nextIcon={<FontAwesomeIcon icon={faCaretRight} />}
+            prevIcon={<FontAwesomeIcon icon={faCaretLeft} />}
+          >
+            {test.map((user, index) => (
+              <Carousel.Item key={index}>
+                <li key={user._id} className="request-item">
+                  <p>
+                    O usuário <strong>{user.email}</strong> está solicitando uma reserva em <strong>{user.company}</strong>
+            &nbsp; no dia <strong>{user.date}</strong>
+                  </p>
+                  <button className="accept" onClick={() => alert('foi carai')}> ACEITAR <FontAwesomeIcon icon={faCheck} /> </button>
+                  <button className="reject" onClick={() => alert('foi')}> REJEITAR <FontAwesomeIcon icon={faTimes} /></button>
+                </li>
+              </Carousel.Item>))}
+              */}
+          {/* </Carousel> */}
         </Notification>
-   
-        <Carousel >
+
+        <Carousel
+          nextIcon={<FontAwesomeIcon icon={faArrowRight} size='2x' />}
+          prevIcon={<FontAwesomeIcon icon={faArrowLeft} size='2x' />}>
           {spotsList.map((spot, index) => (
-            <Carousel.Item key={index}>
-            <SpotItem key={spot._id}>
-              <header>
-                <img src={spot.thumbnail_url} alt={5} />
-              </header>
-              <strong>{spot.company}</strong>
-              <span>{spot.price ? `R$${Number(spot.price).toFixed(2)}/dia` : 'Gratuito'}</span>
+            <Carousel.Item key={index} style={{ margin: '20px 0' }}>
+              <SpotItem key={spot._id}>
+                <header>
+                  <img src={spot.thumbnail_url} alt={5} />
+                </header>
+                <strong>{spot.company}</strong>
+                <span>{spot.price ? `R$${Number(spot.price).toFixed(2)}/dia` : 'Gratuito'}</span>
               </SpotItem>
 
             </Carousel.Item>

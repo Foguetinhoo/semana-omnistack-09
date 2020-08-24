@@ -19,7 +19,10 @@ export const User = styled.div`
        font-size:25px;
    }
 `;
+export const Logo = styled.img`
+    width:120px;
 
+`;
 export const ButtonLogout = styled.button`
    background:none;
    border:1px solid #eee;

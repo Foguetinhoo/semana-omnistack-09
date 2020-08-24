@@ -6,10 +6,9 @@ module.exports = {
             const io = req.io
             const { booking_id } = req.params
             console.log(booking_id)
-
+        
             const booking = await Booking.findById(booking_id)
-           
-            console.log(booking)
+        
             if (!booking) {
                 return resp.status(404).
                     json({
@@ -17,8 +16,8 @@ module.exports = {
                         message: "reserva não encontrada",
                     })
             }
-
-            if (Object.entries(booking.aproved)) {
+            
+            if (Object.prototype.hasOwnProperty(booking.aproved)) {
                 return resp.status(200).
                     json({
                         type: "error",
@@ -29,6 +28,10 @@ module.exports = {
             booking.aproved = true
 
             await booking.populate('spot').execPopulate()
+            const bookingUserSocket = connectedUsers[booking.user]
+            if (bookingUserSocket) {
+                io.to(bookingUserSocket).emit('booking_response',booking)
+            }
             await booking.save()
 
             

@@ -6,7 +6,8 @@ import { faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import { ToastContainer} from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import Logo from '../../components/Logo/index'
+// import Logo from '../../components/Logo/index'
+import logo from '../../assets/logo.png'
 import ButtonD from '../../components/Button/index'
 import Label from '../../components/Label/index'
 
@@ -32,8 +33,6 @@ export default function Login({ history }) {
   useEffect(() => {
     handleFocus()
   }, [])
-
-
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -63,7 +62,9 @@ export default function Login({ history }) {
           timeout={400}
         >
           <Div>
-            <Logo size={50} />
+            {/* <Logo size={50} /> */}                                                                     
+            <img src={logo}/>
+
             <Content>
               <p>
                 Ofereça <strong>spots</strong> para programadores e encontre <strong>talentos</strong> na web

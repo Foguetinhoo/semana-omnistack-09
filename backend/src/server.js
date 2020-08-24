@@ -10,6 +10,7 @@ const socket = require('socket.io')
 const http =  require('http')
 
 const mongoose =  require('mongoose');
+const { connected } = require('process');
 const app = express();
 const server = http.Server(app)
 const io = socket(server)
@@ -23,7 +24,6 @@ mongoose.connect('mongodb://localhost:27017',{
     useNewUrlParser:true,
     useUnifiedTopology:true
 })
-app.use(express.json());
 
 const connectedUsers = {}
 io.on('connection', socket => {
@@ -41,7 +41,7 @@ app.use((req, res, next) => {
         console.log(err)
     }
 })
-
+app.use(express.json());
 app.use(cors())
 app.use(morgan('dev'))  
 app.use('/v1/api',routes);
